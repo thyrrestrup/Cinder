@@ -1437,9 +1437,11 @@ bool GlslProg::checkUniformType( GLenum uniformType ) const
 		case GL_INT_VEC3: return std::is_same<T,glm::ivec3>::value;
 		case GL_INT_VEC4: return std::is_same<T,glm::ivec4>::value;
 		case GL_SAMPLER_2D: return std::is_same<T,int32_t>::value;
-#if defined( CINDER_ANDROID )
-		case GL_SAMPLER_EXTERNAL_OES: return std::is_same<T,int32_t>::value;		
-#endif		
+#if defined( CINDER_GL_ES )
+	#if defined( CINDER_ANDROID ) || defined( CINDER_LINUX )
+		case GL_SAMPLER_EXTERNAL_OES: return std::is_same<T,int32_t>::value;
+	#endif
+#endif
 		// unigned int
 		case GL_UNSIGNED_INT: return std::is_same<T,uint32_t>::value;
 #if ! defined( CINDER_GL_ES )
