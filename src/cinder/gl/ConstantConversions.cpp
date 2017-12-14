@@ -70,8 +70,11 @@ std::string	constantToString( GLenum constant )
 		sSymbols[GL_SAMPLER_2D_ARRAY_SHADOW] = "SAMPLER_2D_ARRAY_SHADOW";
 		sSymbols[GL_SAMPLER_CUBE_SHADOW] = "GL_SAMPLER_CUBE_SHADOW";
 #endif
-#if defined( CINDER_ANDROID )
+
+#if defined( CINDER_GL_ES )
+	#if defined( CINDER_ANDROID ) || defined( CINDER_LINUX )
 		sSymbols[GL_SAMPLER_EXTERNAL_OES] = "GL_SAMPLER_EXTERNAL_OES";
+	#endif
 #endif
 		sSymbols[GL_INT_VEC2] = "INT_VEC2";
 		sSymbols[GL_INT_VEC3] = "INT_VEC3";
@@ -575,9 +578,11 @@ uint8_t typeToBytes( GLenum type )
 	#endif
 #endif
 
-#if defined( CINDER_ANDROID )
+#if defined( CINDER_GL_ES )
+	#if defined( CINDER_ANDROID ) || defined( CINDER_LINUX )
 		case GL_SAMPLER_EXTERNAL_OES: return sizeof(int); break;
-#endif		
+	#endif
+#endif
 
 		case GL_SAMPLER_CUBE:		return sizeof(int); break;
 		case GL_FLOAT:				return sizeof(float); break;
